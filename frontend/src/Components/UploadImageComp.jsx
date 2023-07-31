@@ -21,6 +21,7 @@ export const UploadImageComp = ({ setShowuploadimgComp }) => {
     };
 
     const handleFileChange = (event) => {
+        setShowFile(false)
 
         const fileData = event.target.files[0];
         const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -37,12 +38,21 @@ export const UploadImageComp = ({ setShowuploadimgComp }) => {
 
 
 const handleSelectChange = (e) => {
+    setShowTag(false)
     setTag(e.target.value)
 }
 
 
 const handleClick = async (e) => {
     e.preventDefault()
+    if(!file || !tag){
+        setShowTag(true)
+        setShowFile(true)
+        return
+    }else{
+        setShowFile(false)
+        setShowTag(false)
+    }
     var formData = new FormData()
     formData.append("file",file)
     formData.append("tag",tag)
