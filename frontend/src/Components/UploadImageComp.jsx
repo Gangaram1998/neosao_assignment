@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, Progress, Select, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, Flex, Input, Progress, Select, Spinner, Text, useToast } from '@chakra-ui/react'
 import { CloseIcon } from "@chakra-ui/icons"
 import React, { useRef, useState } from 'react'
 import "../styles/uploadimage.css"
@@ -6,7 +6,7 @@ import axios from "axios"
 
 export const UploadImageComp = ({ setShowuploadimgComp }) => {
     const fileInputRef = useRef(null);
-    const [Loading, setLoading] = useState(false)
+    const [Loading, setLoading] = useState(true)
     const [show, setShow] = useState(false);
     const [showTag, setShowTag] = useState(false);
     const [file,setFile] = useState(null)
@@ -96,8 +96,21 @@ setLoading(true);
 
 }
 
-return (
-    <Box borderRadius={"10px"} boxShadow="rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px" minWidth={"300px"} maxH={"300px"} maxW={"300px"} bg="white" zIndex={1} position={"fixed"} top={"50%"} left={"50%"} transform={"translate(-50%,-50%)"} minHeight={"300px"} padding={"20px"} textAlign={"left"}>
+
+
+
+return (Loading?<Spinner
+    thickness='4px'
+    speed='0.65s'
+    emptyColor='gray.200'
+    color='blue.500'
+    size='xl'
+    top={"50%"}
+    left={"50%"}
+    transform={"translate(-50%, -50%)"}
+    zIndex={1}
+    position={"fixed"}
+  />:<Box borderRadius={"10px"} boxShadow="rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px" minWidth={"300px"} maxH={"300px"} maxW={"300px"} bg="white" zIndex={1} position={"fixed"} top={"50%"} left={"50%"} transform={"translate(-50%,-50%)"} minHeight={"300px"} padding={"20px"} textAlign={"left"}>
         <Flex>
             <Text color={"#091b33"} fontSize={"18px"} fontWeight={700}>Upload Your Image</Text>
             <CloseIcon fontSize={"16px"} marginLeft={"70px"} marginTop={"10px"} onClick={() => setShowuploadimgComp(false)} />
