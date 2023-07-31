@@ -37,9 +37,11 @@ const PostController = async(req,res)=>{
 
 const GetController =async(req,res) =>{
 
-    const {query} = req.query
-    console.log(req.query,41)
-    console.log(query,42)
+    const {query, page} = req.query
+    const pageNumber = page || 1;
+    const limit =10;
+    const skip =(pageNumber - 1)*10
+    
     const queryObj={
 
     }
@@ -49,13 +51,15 @@ const GetController =async(req,res) =>{
 
     try{
         console.log(queryObj)
-       const allImages= await ImageModel.find(queryObj); 
+       const allImages= await ImageModel.find(queryObj).skip(Number(pageNumber)).limit(Number(limit));
+       const Total = await ImageModel.find(queryObj).countDocuments()
        res.send({
         message:"All images",
         status:200,
         error:false,
-        data:allImages
-       })
+        data:allImages ,
+        Total
+     })
     }catch(err){
         res.send({
             message:"something went wrong",
